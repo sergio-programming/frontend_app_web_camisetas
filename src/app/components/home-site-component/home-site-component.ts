@@ -23,7 +23,7 @@ export class HomeSiteComponent implements OnInit {
   }
 
   loadFeaturedProducts(): void{
-    this.productServices.getProducts().subscribe({
+    this.productServices.getShirts().subscribe({
       next:(products) => {
         this.featuredProducts = products.slice(0, 3);
       },
