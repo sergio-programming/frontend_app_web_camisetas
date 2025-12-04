@@ -16,7 +16,7 @@ export interface LoginResponse {
 })
 export class AuthServices {
   
-  private apiUrl = 'http://localhost:3000/api/auth';
+  private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/auth';
 
   constructor(private http: HttpClient) {}
 

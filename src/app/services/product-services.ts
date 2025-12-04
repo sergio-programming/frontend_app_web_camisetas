@@ -32,7 +32,7 @@ export interface ProductCreate {
 })
 export class ProductServices {
 
-  private apiUrl = 'http://localhost:3000/api/products';
+  private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/products';
 
   constructor(private http: HttpClient) {}
 

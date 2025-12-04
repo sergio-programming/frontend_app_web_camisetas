@@ -29,7 +29,7 @@ export interface UserCreate {
 })
 export class UserServices {
   
-  private apiUrl = 'http://localhost:3000/api/users';
+  private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/users';
   
   constructor (private http: HttpClient) {}
 
