@@ -1,0 +1,91 @@
+<form
+    [formGroup]="userUpdateForm"
+    (ngSubmit)="submitUpdateUser()"
+    class="w-full max-w-xl mx-auto flex flex-col mt-5 py-8 px-6 sm:px-8 bg-white border border-gray-400 rounded-lg"
+>
+    <h2 class="mt-2 text-2xl text-center font-bold">Actualización de Usuarios</h2>
+
+    <p class="mt-4 font-semibold">Ingrese los datos del usuario</p>
+
+    <label class="mt-4 font-semibold">Email</label>
+    <input 
+        type="email"
+        id="email"
+        formControlName="email"
+        class="mt-1 py-2 px-2 w-full border border-gray-400 rounded-lg"
+        placeholder="Ingrese el email..."
+    >
+
+    @if (userUpdateForm.get('email')?.touched && userUpdateForm.get('email')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            El email es obligatorio y debe ser válido
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Nombre</label>
+    <input 
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        class="mt-1 py-2 px-2 w-full border border-gray-400 rounded-lg"
+        placeholder="Ingrese el nombre..."
+    >
+
+    @if (userUpdateForm.get('nombre')?.touched && userUpdateForm.get('nombre')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            El nombre es obligatorio y debe tener mínimo 3 caracteres
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Rol</label>
+    <select 
+        formControlName="role"
+        class="px-4 py-2 w-full border border-gray-400 rounded-lg"
+    >
+        <option value="">-- Selecciona una opción --</option>
+        <option value="superadmin">superadmin</option>
+        <option value="admin">admin</option>
+    </select>
+
+    @if (userUpdateForm.get('role')?.touched && userUpdateForm.get('role')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            Debes seleccionar un rol válido
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Rol</label>
+    <div class="flex items-center gap-2 mt-1">
+        <input 
+            type="checkbox"
+            id="activo"
+            formControlName="activo"
+            class="w-5 h-5 cursor-pointer"
+        >
+        <span>Usuario activo</span>
+    </div>
+
+    <button
+        type="submit"
+        class="w-1/2 mt-4 mx-auto px-4 py-2 bg-gray-400 text-white font-semibold border border-gray-600 rounded-lg hover:bg-gray-600 cursor-pointer"
+    >
+        Actualizar
+    </button>
+
+    @if (invalidFormMessage) {
+        <div class="mt-4 p-2 bg-red-200 text-red-800 rounded">
+            {{ invalidFormMessage }}
+        </div>
+    }
+
+    @if (errorMessage) {
+        <div class="mt-4 p-2 bg-red-200 text-red-800 rounded">
+            {{ errorMessage }}
+        </div>
+    }
+
+    @if (successMessage) {
+        <div class="mt-4 p-2 bg-green-200 text-green-800 rounded">
+            {{ successMessage }}
+        </div>
+    }
+</form>

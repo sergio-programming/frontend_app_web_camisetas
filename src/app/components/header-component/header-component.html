@@ -1,0 +1,17 @@
+<header class="bg-black text-white">
+    <nav class="mx-auto p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        
+        <div class="text-2xl font-bold hover:font-extrabold">
+            Blackened Camisetas
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 font-semibold sm:ml-auto text-center sm:text-left">
+            <a class="hover:font-bold" [routerLink]="['/home-admin']" routerLinkActive="router-link-active">Inicio</a>
+            <a class="hover:font-bold" [routerLink]="['/home-admin/users']" routerLinkActive="router-link-active">Usuarios</a>
+            <a class="hover:font-bold" [routerLink]="['/home-admin/products']" routerLinkActive="router-link-active">Productos</a>
+            <a class="hover:font-bold cursor-pointer" (click)="logout()">Cerrar Sesión</a>
+        </div>
+
+    </nav>
+</header>
+

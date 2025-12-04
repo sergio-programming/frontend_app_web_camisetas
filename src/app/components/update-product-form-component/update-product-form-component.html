@@ -1,0 +1,110 @@
+<form
+    [formGroup]="productUpdateForm"
+    (ngSubmit)="submitUpdateProduct()"
+    class="w-full max-w-xl mx-auto flex flex-col mt-5 py-8 px-6 sm:px-8 bg-white border border-gray-400 rounded-lg"
+>
+    <h2 class="mt-2 text-2xl text-center font-bold">Registro de Productos</h2>
+
+    <p class="mt-4 font-semibold">Ingrese los datos del producto</p>
+
+    <label class="mt-4 font-semibold">Código</label>
+    <input 
+        type="text"
+        id="codigo"
+        formControlName="codigo"
+        class="mt-1 py-2 px-2 w-full border border-gray-400 rounded-lg"
+        placeholder="Ingrese el código..."
+    >
+
+    @if (productUpdateForm.get('codigo')?.touched && productUpdateForm.get('codigo')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            El código es obligatorio y debe tener minimo 6 caracteres
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Descripción</label>
+    <input 
+        type="text"
+        id="descripcion"
+        formControlName="descripcion"
+        class="mt-1 py-2 px-2 w-full border border-gray-400 rounded-lg"
+        placeholder="Ingrese la descripción..."
+    >
+
+    @if (productUpdateForm.get('descripcion')?.touched && productUpdateForm.get('descripcion')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            La descripción es obligatoria y debe tener máximo 100 caracteres
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Precio</label>
+    <input 
+        type="number"
+        id="precio"
+        formControlName="precio"
+        class="mt-1 py-2 px-2 w-full border border-gray-400 rounded-lg"
+        placeholder="Ingrese el precio..."
+    >
+
+    @if (productUpdateForm.get('precio')?.touched && productUpdateForm.get('precio')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            El precio es obligatorio y no puede ser menor a cero
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Categoría</label>
+    <select 
+        formControlName="categoria"
+        class="px-4 py-2 w-full border border-gray-400 rounded-lg"
+    >
+        <option value="">-- Selecciona una opción --</option>
+        <option value="Camisetas">Camisetas</option>
+        <option value="Discos">Discos</option>
+    </select>
+
+    @if (productUpdateForm.get('categoria')?.touched && productUpdateForm.get('categoria')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            Debes seleccionar una categoría válida
+        </div>
+    }
+
+    <label class="mt-4 font-semibold">Imagen</label>
+    <input 
+        type="text"
+        id="imagen"
+        formControlName="imagen"
+        class="mt-1 py-2 px-2 w-full border border-gray-400 rounded-lg"
+        placeholder="Ingrese la URL de la imagen..."
+    >
+
+    @if (productUpdateForm.get('imagen')?.touched && productUpdateForm.get('imagen')?.invalid) {
+        <div class="text-red-500 text-sm mt-1">
+            La URL de la imagen es obligatoria
+        </div>
+    }
+
+    <button
+        type="submit"
+        class="w-1/2 mt-4 mx-auto px-4 py-2 bg-gray-400 text-white font-semibold border border-gray-600 rounded-lg hover:bg-gray-600 cursor-pointer"
+    >
+        Actualizar
+    </button>
+
+    @if (invalidFormMessage) {
+        <div class="mt-4 p-2 bg-red-200 text-red-800 rounded">
+            {{ invalidFormMessage }}
+        </div>
+    }
+
+    @if (errorMessage) {
+        <div class="mt-4 p-2 bg-red-200 text-red-800 rounded">
+            {{ errorMessage }}
+        </div>
+    }
+
+    @if (successMessage) {
+        <div class="mt-4 p-2 bg-green-200 text-green-800 rounded">
+            {{ successMessage }}
+        </div>
+    }
+</form>

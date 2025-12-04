@@ -1,0 +1,62 @@
+<button
+    (click)="onGetCreateForm()"
+    class="flex mt-4 mx-auto px-4 py-2 bg-gray-400 text-white font-semibold border border-gray-600 rounded-lg hover:bg-gray-600 cursor-pointer"
+>
+    Crear Producto
+</button>
+
+@if (getCreateForm) {
+    <app-create-product-form-component (productCreated)="refreshProducts()"></app-create-product-form-component>
+}
+
+<div class="overflow-x-auto mt-6">
+    <table class="w-full min-w-[600px] border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+        <thead class="bg-gray-900 text-white">
+            <tr>
+                <th class="border border-black px-6 py-3 text-left">Código</th>
+                <th class="border border-black px-6 py-3 text-left">Descripción</th>
+                <th class="border border-black px-6 py-3 text-left">Precio</th>
+                <th class="border border-black px-6 py-3 text-left">Categoría</th>
+                <th class="border border-black px-6 py-3 text-left">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (product of products; track product._id) {
+                <tr class="border-b hover:bg-gray-100 transition">
+                    <td class="border border-black px-6 py-3">{{ product.codigo }}</td>
+                    <td class="border border-black px-6 py-3">{{ product.descripcion }}</td>
+                    <td class="border border-black px-6 py-3">{{ product.precio }}</td>
+                    <td class="border border-black px-6 py-3">{{ product.categoria }}</td>
+
+                    <td class="border border-black px-6 py-3">
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <button
+                                (click)="onGetUpdateForm(product)"
+                                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                            >
+                                <i class="fas fa-edit"></i>
+                                Editar
+                            </button>
+
+                            <button
+                                (click)="submitDeleteProduct(product._id)"
+                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                            >
+                                <i class="fas fa-trash"></i>
+                                Eliminar
+                            </button>
+                        </div>
+
+                        @if (getUpdateForm && selectedProduct?._id === product._id) {
+                            <app-update-product-form-component
+                                [productToUpdate]="selectedProduct"
+                                (productUpdated)="refreshProducts()"
+                            ></app-update-product-form-component>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

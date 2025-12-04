@@ -1,0 +1,62 @@
+<button
+    (click)="onGetCreateForm()"
+    class="flex mt-4 mx-auto px-4 py-2 bg-gray-400 text-white font-semibold border border-gray-600 rounded-lg hover:bg-gray-600 cursor-pointer"
+>
+    Crear Usuario
+</button>
+
+@if (getCreateForm) {
+    <app-create-user-form-component (userCreated)="refreshUsers()"></app-create-user-form-component>
+}
+
+<div class="overflow-x-auto mt-6">
+    <table class="w-full min-w-[600px] border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+        <thead class="bg-gray-900 text-white">
+            <tr>
+                <th class="border border-black px-6 py-3 text-left">#</th>
+                <th class="border border-black px-6 py-3 text-left">Email</th>
+                <th class="border border-black px-6 py-3 text-left">Nombre</th>
+                <th class="border border-black px-6 py-3 text-left">Rol</th>
+                <th class="border border-black px-6 py-3 text-left">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (user of users; track user._id; let i = $index) {
+                <tr class="border-b hover:bg-gray-100 transition">
+                    <td class="border border-black px-6 py-3">{{ i + 1 }}</td>
+                    <td class="border border-black px-6 py-3">{{ user.email }}</td>
+                    <td class="border border-black px-6 py-3">{{ user.nombre }}</td>
+                    <td class="border border-black px-6 py-3">{{ user.role }}</td>
+
+                    <td class="border border-black px-6 py-3">
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <button
+                                (click)="onGetUpdateForm(user)"
+                                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                            >
+                                <i class="fas fa-edit"></i>
+                                Editar
+                            </button>
+
+                            <button
+                                (click)="submitDeleteUser(user._id)"
+                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                            >
+                                <i class="fas fa-trash"></i>
+                                Eliminar
+                            </button>
+                        </div>
+
+                        @if (getUpdateForm && selectedUser?._id === user._id) {
+                            <app-update-user-form-component
+                                [userToUpdate]="selectedUser"
+                                (userUpdated)="refreshUsers()"
+                            ></app-update-user-form-component>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
