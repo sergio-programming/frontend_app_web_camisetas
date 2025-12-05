@@ -38,5 +38,5 @@ export class HomeSiteComponent implements OnInit {
   goToAlbumsSection() {
     this.router.navigate(['/home/albums']);
   }
-
+  
 }

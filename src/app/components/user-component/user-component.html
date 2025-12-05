@@ -10,30 +10,41 @@
 }
 
 <div class="overflow-x-auto mt-6">
-    <table class="w-full min-w-[600px] border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+    <table class="w-full min-w-[600px] border-collapse bg-white shadow-lg rounded-lg overflow-hidden text-sm md:text-base">
         <thead class="bg-gray-900 text-white">
             <tr>
-                <th class="border border-black px-6 py-3 text-left">#</th>
-                <th class="border border-black px-6 py-3 text-left">Email</th>
-                <th class="border border-black px-6 py-3 text-left">Nombre</th>
-                <th class="border border-black px-6 py-3 text-left">Rol</th>
-                <th class="border border-black px-6 py-3 text-left">Acciones</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">#</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Email</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Nombre</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Rol</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Acciones</th>
             </tr>
         </thead>
 
         <tbody>
             @for (user of users; track user._id; let i = $index) {
                 <tr class="border-b hover:bg-gray-100 transition">
-                    <td class="border border-black px-6 py-3">{{ i + 1 }}</td>
-                    <td class="border border-black px-6 py-3">{{ user.email }}</td>
-                    <td class="border border-black px-6 py-3">{{ user.nombre }}</td>
-                    <td class="border border-black px-6 py-3">{{ user.role }}</td>
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ i + 1 }}
+                    </td>
 
-                    <td class="border border-black px-6 py-3">
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ user.email }}
+                    </td>
+
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ user.nombre }}
+                    </td>
+
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ user.role }}
+                    </td>
+
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3">
                         <div class="flex flex-wrap justify-center gap-2">
                             <button
                                 (click)="onGetUpdateForm(user)"
-                                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                                class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 md:px-4 md:py-2 rounded-lg flex items-center gap-1 md:gap-2 cursor-pointer text-xs md:text-sm whitespace-nowrap"
                             >
                                 <i class="fas fa-edit"></i>
                                 Editar
@@ -41,7 +52,7 @@
 
                             <button
                                 (click)="submitDeleteUser(user._id)"
-                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 md:px-4 md:py-2 rounded-lg flex items-center gap-1 md:gap-2 cursor-pointer text-xs md:text-sm whitespace-nowrap"
                             >
                                 <i class="fas fa-trash"></i>
                                 Eliminar

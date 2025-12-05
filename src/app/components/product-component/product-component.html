@@ -10,30 +10,41 @@
 }
 
 <div class="overflow-x-auto mt-6">
-    <table class="w-full min-w-[600px] border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+    <table class="w-full min-w-[600px] border-collapse bg-white shadow-lg rounded-lg overflow-hidden text-sm md:text-base">
         <thead class="bg-gray-900 text-white">
             <tr>
-                <th class="border border-black px-6 py-3 text-left">Código</th>
-                <th class="border border-black px-6 py-3 text-left">Descripción</th>
-                <th class="border border-black px-6 py-3 text-left">Precio</th>
-                <th class="border border-black px-6 py-3 text-left">Categoría</th>
-                <th class="border border-black px-6 py-3 text-left">Acciones</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Código</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Descripción</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Precio</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Categoría</th>
+                <th class="border border-black px-3 py-2 md:px-6 md:py-3 text-left whitespace-nowrap">Acciones</th>
             </tr>
         </thead>
 
         <tbody>
             @for (product of products; track product._id) {
                 <tr class="border-b hover:bg-gray-100 transition">
-                    <td class="border border-black px-6 py-3">{{ product.codigo }}</td>
-                    <td class="border border-black px-6 py-3">{{ product.descripcion }}</td>
-                    <td class="border border-black px-6 py-3">{{ product.precio }}</td>
-                    <td class="border border-black px-6 py-3">{{ product.categoria }}</td>
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ product.codigo }}
+                    </td>
 
-                    <td class="border border-black px-6 py-3">
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ product.descripcion }}
+                    </td>
+
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ product.precio }}
+                    </td>
+
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3 whitespace-nowrap">
+                        {{ product.categoria }}
+                    </td>
+
+                    <td class="border border-black px-3 py-2 md:px-6 md:py-3">
                         <div class="flex flex-wrap justify-center gap-2">
                             <button
                                 (click)="onGetUpdateForm(product)"
-                                class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                                class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 md:px-4 md:py-2 rounded-lg flex items-center gap-1 md:gap-2 cursor-pointer text-xs md:text-sm whitespace-nowrap"
                             >
                                 <i class="fas fa-edit"></i>
                                 Editar
@@ -41,7 +52,7 @@
 
                             <button
                                 (click)="submitDeleteProduct(product._id)"
-                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer"
+                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 md:px-4 md:py-2 rounded-lg flex items-center gap-1 md:gap-2 cursor-pointer text-xs md:text-sm whitespace-nowrap"
                             >
                                 <i class="fas fa-trash"></i>
                                 Eliminar
