@@ -13,5 +13,5 @@ export interface LoginResponse {
 
 export interface AuthSession {
     accessToken: string;
-    session: SessionUser;
+    user: SessionUser;
 }

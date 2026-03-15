@@ -1,0 +1,130 @@
+<div class="min-h-screen bg-[#0a0b10] flex items-center justify-center p-6 font-sans">
+    <div class="bg-[#111218] w-full max-w-lg shadow-[0_0_60px_rgba(0,0,0,0.7)] border border-[#1a1c26] p-10 relative overflow-hidden">
+        
+        <div class="absolute top-0 right-0 w-16 h-16 bg-[#6366f1]/10 -rotate-45 translate-x-8 -translate-y-8 border-b border-white/10"></div>
+
+        <header class="text-center mb-10 border-b border-[#1a1c26] pb-6">
+            <h2 class="text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-md">
+                {{ productToEdit() ? 'Actualizar' : 'Crear' }} <span class="text-[#6366f1]">Producto</span>
+            </h2>
+            <p class="text-gray-500 mt-2 uppercase tracking-[0.3em] text-[10px] font-bold">Gestiona tus productos</p>
+        </header>
+
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-8">
+            
+            <div class="relative group">
+                <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
+                    Código del producto
+                </label>
+                <input type="text" formControlName="productCode"
+                    class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-mono placeholder:text-gray-800 focus:border-[#6366f1] transition-all outline-none"
+                    placeholder="CAM-0001 - DISC-0001"
+                >
+                @if (productForm.get('productCode')?.invalid && productForm.get('productCode')?.touched) {
+                    <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic animate-bounce">
+                        <i class="fas fa-exclamation-triangle mr-1"></i> El código es obligatorio y debe ser válido
+                    </div>
+                }
+            </div>
+
+            <div class="relative group">
+                <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
+                    Descripción del producto
+                </label>
+                <input type="text" formControlName="description"
+                    class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-bold uppercase tracking-tight placeholder:text-gray-800 focus:border-[#6366f1] transition-all outline-none"
+                    placeholder="E.G. Camiseta Master of Puppets"
+                >
+                @if (productForm.get('description')?.invalid && productForm.get('description')?.touched) {
+                    <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
+                        <i class="fas fa-exclamation-triangle mr-1"></i> La descripción es obligatoria
+                    </div>
+                }
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative group">
+                    <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
+                        Precio ($)
+                    </label>
+                    <input type="number" formControlName="price"
+                        class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-black italic focus:border-[#6366f1] transition-all outline-none"
+                        placeholder="0.00"
+                    >
+                    @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
+                        <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
+                            El precio es obligatorio y debe ser válido
+                        </div>
+                    }
+                </div>
+
+                <div class="relative group">
+                    <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
+                        Categoría
+                    </label>
+                    <div class="relative">
+                        <select formControlName="category"
+                            class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-black uppercase italic focus:border-[#6366f1] outline-none cursor-pointer appearance-none">
+                            <option value="" disabled selected>Seleccionar</option>
+                            @for (category of CategoriesOptions; track category) {
+                                <option [value]="category" class="bg-[#111218]">{{ category }}</option>
+                            }
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none text-xs"></i>
+                    </div>
+                    @if (productForm.get('category')?.invalid && productForm.get('category')?.touched) {
+                        <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
+                            Requerido
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="relative group">
+                <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
+                    URL de Imagen
+                </label>
+                <div class="flex items-center">
+                    <span class="bg-[#1a1c26] px-4 py-4 border-2 border-[#1a1c26] border-r-0 text-gray-500">
+                        <i class="fas fa-link"></i>
+                    </span>
+                    <input type="text" formControlName="image"
+                        class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-mono text-xs focus:border-[#6366f1] transition-all outline-none"
+                        placeholder="https://..."
+                    >
+                </div>
+                @if (productForm.get('image')?.invalid && productForm.get('image')?.touched) {
+                    <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
+                        La imagen es obligatoria
+                    </div>
+                }
+            </div>            
+
+            @if (message().text) {
+                <div [class]="message().type === 'success' ? 'bg-green-950/20 border-green-500/50 text-green-400' : 'bg-red-950/20 border-red-500/50 text-red-400'"
+                     class="p-4 rounded-none border-l-4 text-xs font-black uppercase tracking-tighter animate-pulse">
+                    <i [class]="message().type === 'success' ? 'fas fa-check-circle' : 'fas fa-skull'" class="mr-2"></i>
+                    {{ message().text }}
+                </div>
+            }
+
+            <div class="flex flex-col gap-4 pt-4">
+                <button type="submit" [disabled]="isLoading()"
+                    class="group w-full py-5 bg-white text-black font-black uppercase italic 
+                           hover:bg-[#6366f1] hover:text-white transition-all duration-300 
+                           shadow-[6px_6px_0px_0px_rgba(99,102,241,1)] active:shadow-none active:translate-x-1 active:translate-y-1 
+                           disabled:opacity-50 flex justify-center items-center cursor-pointer">
+                    @if (isLoading()) {
+                        <div class="w-5 h-5 border-4 border-[#0a0b10] border-t-transparent rounded-full animate-spin mr-3"></div>
+                    }
+                    {{ productToEdit() ? 'Guardar Cambios' : 'Crear Producto' }}
+                </button>
+                
+                <button type="button" (click)="onCancel()"
+                    class="w-full py-4 bg-transparent border-2 border-[#1a1c26] text-gray-500 font-black uppercase italic tracking-widest hover:bg-red-600/10 hover:text-red-500 hover:border-red-500 transition-all cursor-pointer">
+                    Regresar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

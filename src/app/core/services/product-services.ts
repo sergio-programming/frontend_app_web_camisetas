@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product, ProductCreate, ProductUpdate, ProductResponse } from '../../features/products/product.model';
 import { firstValueFrom } from 'rxjs';
@@ -11,6 +11,8 @@ export class ProductServices {
   private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/products';
 
   private readonly http = inject(HttpClient);
+
+  private productToEdit = signal<Product | null>(null);
 
   async getProducts(): Promise<Product[]> {
       return await firstValueFrom(
@@ -52,6 +54,14 @@ export class ProductServices {
     return await firstValueFrom(
       this.http.delete<ProductResponse>(`${this.apiUrl}/${_id}`)
     ); 
+  }
+
+  setProductToEdit(product: Product | null) {
+    this.productToEdit.set(product);
+  }
+
+  getProductToEdit() {
+    return this.productToEdit();
   }
   
 }
