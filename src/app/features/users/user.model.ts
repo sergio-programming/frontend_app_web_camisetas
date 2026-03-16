@@ -22,7 +22,6 @@ export interface UserUpdate {
     fullName: string;
     email: string;
     role: string;
-    isActive: boolean;
 }
 
 export interface UserResponse {

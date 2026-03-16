@@ -9,7 +9,7 @@ export const ProductRoutes: Routes = [
         children: [
             { path: '', component: ProductList, title: 'Lista de Productos' },
             { path: 'crear', component: ProductForm, title: 'Crear Producto' },
-            { path: 'editar/:id', component: ProductForm, title: 'Lista de Productos' },
+            { path: 'editar/:id', component: ProductForm, title: 'Editar Producto' },
         ]
     }
 ]

@@ -5,100 +5,82 @@
 
         <header class="text-center mb-10 border-b border-[#1a1c26] pb-6">
             <h2 class="text-4xl font-black text-white uppercase italic tracking-tighter drop-shadow-md">
-                {{ productToEdit() ? 'Actualizar' : 'Crear' }} <span class="text-[#6366f1]">Producto</span>
+                {{ userToEdit() ? 'Actualizar' : 'Crear' }} <span class="text-[#6366f1]">Usuario</span>
             </h2>
-            <p class="text-gray-500 mt-2 uppercase tracking-[0.3em] text-[10px] font-bold">Gestiona tus productos</p>
+            <p class="text-gray-500 mt-2 uppercase tracking-[0.3em] text-[10px] font-bold">Gestiona los usuarios registrados</p>
         </header>
 
-        <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-8">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="space-y-8">
             
             <div class="relative group">
                 <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
-                    Código del producto
+                    Nombre Completo
                 </label>
-                <input type="text" formControlName="productCode"
+                <input type="text" formControlName="fullName"
                     class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-mono placeholder:text-gray-800 focus:border-[#6366f1] transition-all outline-none"
-                    placeholder="CAM-0001 - DISC-0001"
+                    placeholder="Ej. Juan Perez"
                 >
-                @if (productForm.get('productCode')?.invalid && productForm.get('productCode')?.touched) {
+                @if (userForm.get('fullName')?.invalid && userForm.get('fullName')?.touched) {
                     <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic animate-bounce">
-                        <i class="fas fa-exclamation-triangle mr-1"></i> El código es requerido y debe ser válido
+                        <i class="fas fa-exclamation-triangle mr-1"></i> El nombre es requerido y debe tener mínimo 3 caracteres
                     </div>
                 }
             </div>
 
             <div class="relative group">
                 <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
-                    Descripción del producto
+                    Correo Electrónico
                 </label>
-                <input type="text" formControlName="description"
+                <input type="email" formControlName="email"
                     class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-bold uppercase tracking-tight placeholder:text-gray-800 focus:border-[#6366f1] transition-all outline-none"
-                    placeholder="E.G. Camiseta Master of Puppets"
+                    placeholder="tu@email.com"
                 >
-                @if (productForm.get('description')?.invalid && productForm.get('description')?.touched) {
+                @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
                     <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
-                        <i class="fas fa-exclamation-triangle mr-1"></i> La descripción es requerida
+                        <i class="fas fa-exclamation-triangle mr-1"></i> El email es requerido y debe ser válido
                     </div>
                 }
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @if (!userToEdit()) {
                 <div class="relative group">
                     <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
-                        Precio ($)
+                        Contraseña
                     </label>
-                    <input type="number" formControlName="price"
+                    <input type="password" formControlName="password"
                         class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-black italic focus:border-[#6366f1] transition-all outline-none"
-                        placeholder="0.00"
+                        placeholder="**********"
                     >
-                    @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
+                    @if (userForm.get('password')?.invalid && userForm.get('password')?.touched) {
                         <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
-                            El precio es requerido y debe ser válido
+                            La contraseña es requerida y debe tener mínimo 6 caracteres
                         </div>
                     }
                 </div>
-
+            }
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="relative group">
                     <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
-                        Categoría
+                        Rol de Usuario
                     </label>
                     <div class="relative">
-                        <select formControlName="category"
+                        <select formControlName="role"
                             class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-black uppercase italic focus:border-[#6366f1] outline-none cursor-pointer appearance-none">
                             <option value="" disabled selected>Seleccionar</option>
-                            @for (category of CategoriesOptions; track category) {
-                                <option [value]="category" class="bg-[#111218]">{{ category }}</option>
+                            @for (option of RoleOptions; track option) {
+                                <option [value]="option" class="bg-[#111218]">{{ option }}</option>
                             }
                         </select>
                         <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 pointer-events-none text-xs"></i>
                     </div>
-                    @if (productForm.get('category')?.invalid && productForm.get('category')?.touched) {
+                    @if (userForm.get('role')?.invalid && userForm.get('role')?.touched) {
                         <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
-                            La categoría es requerida y debe ser válida
+                            El rol es requerido y debe ser válido
                         </div>
                     }
                 </div>
             </div>
-
-            <div class="relative group">
-                <label class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-2 group-focus-within:text-[#6366f1] transition-colors">
-                    URL de Imagen
-                </label>
-                <div class="flex items-center">
-                    <span class="bg-[#1a1c26] px-4 py-4 border-2 border-[#1a1c26] border-r-0 text-gray-500">
-                        <i class="fas fa-link"></i>
-                    </span>
-                    <input type="text" formControlName="image"
-                        class="w-full bg-black border-2 border-[#1a1c26] rounded-none px-4 py-4 text-white font-mono text-xs focus:border-[#6366f1] transition-all outline-none"
-                        placeholder="https://..."
-                    >
-                </div>
-                @if (productForm.get('image')?.invalid && productForm.get('image')?.touched) {
-                    <div class="mt-2 text-red-500 text-[10px] font-black uppercase italic">
-                        La imagen es requerida
-                    </div>
-                }
-            </div>            
+            
 
             @if (message().text) {
                 <div [class]="message().type === 'success' ? 'bg-green-950/20 border-green-500/50 text-green-400' : 'bg-red-950/20 border-red-500/50 text-red-400'"
@@ -117,7 +99,7 @@
                     @if (isLoading()) {
                         <div class="w-5 h-5 border-4 border-[#0a0b10] border-t-transparent rounded-full animate-spin mr-3"></div>
                     }
-                    {{ productToEdit() ? 'Guardar Cambios' : 'Crear Producto' }}
+                    {{ userToEdit() ? 'Guardar Cambios' : 'Crear Usuario' }}
                 </button>
                 
                 <button type="button" (click)="onCancel()"
