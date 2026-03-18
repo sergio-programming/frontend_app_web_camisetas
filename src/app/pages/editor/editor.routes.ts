@@ -10,7 +10,7 @@ export const EditorRoutes: Routes = [
     },
     {
         path: 'products',
-        loadChildren: () => import('../../products/product.routes').then(m => m.ProductRoutes)
+        loadChildren: () => import('../../features/products/product.routes').then(m => m.ProductRoutes)
     },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ]

@@ -9,7 +9,7 @@ export const routes: Routes = [
     {
         path: '',
         component: HomeSiteLayout,
-        loadChildren: () => import().then(m => m.HomeRoutes)
+        loadChildren: () => import('./pages/public-site/public.routes').then(m => m.PublicSiteRoutes)
     },
 
     // Login
@@ -19,13 +19,13 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: DashboardLayout,
-        loadChildren: () => import('./features/users/admin/admin.routes').then(m => m.AdminRoutes)
+        loadChildren: () => import('./pages/admin/admin.routes').then(m => m.AdminRoutes)
     },
     {
         path: 'editor',
         component: DashboardLayout,
-        loadChildren: () => import('./features/users/editor/editor.routes').then(m => m.EditorRoutes)
-    } 
+        loadChildren: () => import('./pages/editor/editor.routes').then(m => m.EditorRoutes)
+    }, 
 
 
     // Redirecciones

@@ -26,13 +26,7 @@ export class ProductServices {
     ); 
   }
 
-  async getShirts(category: string = 'Camisetas'): Promise<Product[]> {
-    return await firstValueFrom(
-      this.http.get<Product[]>(`${this.apiUrl}/category/${category}`)
-    ); 
-  }
-
-  async getAlbums(category: string = 'Discos'): Promise<Product[]> {
+  async getProductsByCategory(category: string): Promise<Product[]> {
     return await firstValueFrom(
       this.http.get<Product[]>(`${this.apiUrl}/category/${category}`)
     ); 
