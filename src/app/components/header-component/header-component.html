@@ -1,17 +1,48 @@
-<header class="bg-black text-white">
-    <nav class="mx-auto p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        
-        <div class="text-2xl font-bold hover:font-extrabold">
-            Blackened Camisetas
-        </div>
+<header class="h-20 bg-[#0a0b10] border-b-4 border-[#1a1c26] flex items-center justify-between px-8 sticky top-0 z-50">
+    <div class="flex items-center gap-2 border-2 border-[#6366f1] px-4 py-1 bg-[#6366f1]/5 shadow-[4px_4px_0px_0px_rgba(99,102,241,1)]">
+        <span class="text-white font-black tracking-tighter uppercase italic text-lg">
+            Blackened <span class="text-[#6366f1]">Shop</span>
+        </span>
+    </div>
 
-        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 font-semibold sm:ml-auto text-center sm:text-left">
-            <a class="hover:font-bold" [routerLink]="['/home-admin']" routerLinkActive="router-link-active">Inicio</a>
-            <a class="hover:font-bold" [routerLink]="['/home-admin/users']" routerLinkActive="router-link-active">Usuarios</a>
-            <a class="hover:font-bold" [routerLink]="['/home-admin/products']" routerLinkActive="router-link-active">Productos</a>
-            <a class="hover:font-bold cursor-pointer" (click)="logout()">Cerrar Sesión</a>
-        </div>
+    <div class="flex items-center gap-8">
+        <nav class="flex items-center gap-2 pr-6 border-r-2 border-[#1a1c26]">
+            @for (link of links; track link.path) {
+                <a
+                    [routerLink]="link.path"
+                    routerLinkActive="bg-[#6366f1] text-white !border-[#6366f1] shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]"
+                    [routerLinkActiveOptions]="{ exact: false }"
+                    class="px-4 py-2 border-2 border-transparent text-gray-500 hover:text-white hover:border-[#1a1c26] transition-all text-[10px] font-black uppercase italic tracking-widest flex items-center gap-2"
+                >
+                    <i [class]="link.icon"></i>
+                    {{ link.label }}
+                </a>
+            }
+        </nav>
 
-    </nav>
+        @if (user()) {
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="text-right hidden md:block">
+                        <p class="text-[9px] text-gray-600 font-black uppercase tracking-tighter">Acceso: {{ user()?.role }}</p>
+                        <p class="text-white text-xs font-black uppercase italic tracking-tight">
+                            {{ user()?.fullName }}
+                        </p>
+                    </div>
+
+                    <div class="w-10 h-10 border-2 border-[#6366f1] bg-[#111218] flex items-center justify-center text-[#6366f1] font-black text-lg shadow-[3px_3px_0px_0px_rgba(99,102,241,1)]">
+                        {{ user()?.fullName?.substring(0,1) }}
+                    </div>
+                </div>
+
+                <button
+                    (click)="onLogout()"
+                    class="ml-2 w-10 h-10 border-2 border-[#1a1c26] text-gray-600 hover:text-red-500 hover:border-red-500 hover:bg-red-500/10 transition-all cursor-pointer flex items-center justify-center group"
+                    title="Cerrar Sesión"
+                >
+                    <i class="fas fa-power-off text-xs group-hover:scale-110 transition-transform"></i>
+                </button>
+            </div>
+        }
+    </div>
 </header>
-
