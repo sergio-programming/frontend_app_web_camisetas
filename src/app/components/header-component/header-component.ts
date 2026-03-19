@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+﻿import { Component, inject, signal, OnInit } from '@angular/core';
 import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { AuthServices } from '../../core/services/auth-services';
 import { SessionUser } from '../../features/users/user.model';
@@ -38,12 +38,12 @@ export class HeaderComponent implements OnInit {
     if (role === 'editor') {
       return [
         { label: 'Dashboard', path: '/editor/dashboard', icon: 'fas fa-gauge-high' },
-        { label: 'Productos', path: '/editor/productos', icon: 'fas fa-pen-to-square' }
+        { label: 'Productos', path: '/editor/products', icon: 'fas fa-pen-to-square' }
       ];
     }
 
     return [
-      { label: 'Inicio', path: '/home', icon: 'fas fa-house' },
+      { label: 'Inicio', path: '/', icon: 'fas fa-house' },
       { label: 'Camisetas', path: '/shirts', icon: 'fas fa-shirt' },
       { label: 'Álbumes', path: '/albums', icon: 'fas fa-compact-disc' }
     ];

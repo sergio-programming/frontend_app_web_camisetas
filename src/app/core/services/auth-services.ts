@@ -82,12 +82,30 @@ export class AuthServices {
       return null;
     }
 
-    if (stored.accessToken && stored?.user.email) {
+    if (stored?.accessToken && stored?.user?.email) {
       return stored;
     }
 
     this.storage.remove(AUTH_STORAGE_KEY);
     return null;
-  }  
+  }
+  
+  async refreshToken(): Promise<void> {
+    return await firstValueFrom(
+      this.http.post<void>(`${this.apiUrl}/refresh`, {}, { withCredentials: true })
+    );
+  }
+
+  saveAccessToken(token: string) {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) return;
+
+    const session: AuthSession = {
+      accessToken: token,
+      user: currentUser
+    }
+    
+    this.persistSession(session);
+  }
 
 }

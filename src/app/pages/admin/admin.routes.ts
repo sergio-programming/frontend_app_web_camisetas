@@ -10,11 +10,11 @@ export const AdminRoutes: Routes = [
     },
     {
         path: 'user-management',
-        loadChildren: () => import('../user-management/user.management.routes').then(m => m.UserManagementRoutes)
+        loadChildren: () => import('../../features/users/user-management/user.management.routes').then(m => m.UserManagementRoutes)
     },
     {
         path: 'products',
-        loadChildren: () => import('../../products/product.routes').then(m => m.ProductRoutes)
+        loadChildren: () => import('../../features/products/product.routes').then(m => m.ProductRoutes)
     },
     { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 
