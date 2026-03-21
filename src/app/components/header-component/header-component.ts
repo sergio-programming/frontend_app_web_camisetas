@@ -1,7 +1,6 @@
-﻿import { Component, inject, signal, OnInit } from '@angular/core';
+﻿import { Component, inject} from '@angular/core';
 import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { AuthServices } from '../../core/services/auth-services';
-import { SessionUser } from '../../features/users/user.model';
 
 @Component({
   selector: 'app-header-component',
@@ -9,25 +8,18 @@ import { SessionUser } from '../../features/users/user.model';
   templateUrl: './header-component.html',
   styleUrl: './header-component.css',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   private readonly authServices = inject(AuthServices);
   private readonly router = inject(Router);
 
-  readonly user = signal<SessionUser | null>(null);
+  readonly user = this.authServices.session()?.user;
 
-  ngOnInit(): void {
-    const data = this.authServices.getCurrentUser();
-    this.user.set(data);
-  }
 
   // Usamos una función para obtener links basada en el estado actual del signal
   get links() {
-    const currentUser = this.user();
-    if (!currentUser) return []; // Retorno seguro si no hay usuario
+    if (!this.user) return []; // Retorno seguro si no hay usuario
 
-    const role = currentUser.role;
-
-    if (role === 'admin') {
+    if (this.user.role === 'admin') {
       return [
         { label: 'Dashboard', path: '/admin/dashboard', icon: 'fas fa-terminal' },
         { label: 'Usuarios', path: '/admin/user-management', icon: 'fas fa-users-gear' },
@@ -35,7 +27,7 @@ export class HeaderComponent implements OnInit {
       ];
     }
 
-    if (role === 'editor') {
+    if (this.user.role === 'editor') {
       return [
         { label: 'Dashboard', path: '/editor/dashboard', icon: 'fas fa-gauge-high' },
         { label: 'Productos', path: '/editor/products', icon: 'fas fa-pen-to-square' }

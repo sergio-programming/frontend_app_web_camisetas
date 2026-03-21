@@ -1,4 +1,4 @@
-import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+﻿import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthServices } from '../services/auth-services';
 import { catchError, switchMap, from, throwError } from 'rxjs'; // Importamos 'from'
