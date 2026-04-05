@@ -21,10 +21,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         
         // 'from' convierte tu Promesa async en un Observable que RxJS entiende
         return from(authService.refreshToken()).pipe(
-          switchMap((res: any) => {
+          switchMap((res) => {
             // Extraemos el nuevo token de la respuesta
             const newToken = res.accessToken;
-            
+
+            if (!newToken) {
+              throw new Error('Refresh token sin accessToken');
+            }
+             
             // Actualizamos el Signal y LocalStorage
             authService.saveAccessToken(newToken);
 

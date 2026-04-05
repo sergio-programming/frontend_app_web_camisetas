@@ -33,6 +33,11 @@ export const routes: Routes = [
 
 
     // Redirecciones
+    {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full'
+    },
     { path: '**', redirectTo: '' }
     
 ];

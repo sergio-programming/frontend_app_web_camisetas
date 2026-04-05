@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SessionUser } from '../../features/users/user.model';
-import { LoginPayload, LoginResponse, AuthSession } from '../../features/auth/auth.model';
+import { LoginPayload, LoginResponse, AuthSession, RefreshTokenResponse } from '../../features/auth/auth.model';
 import { firstValueFrom } from 'rxjs';
 import { LocalStorageServices } from './local-storage-services';
 
@@ -13,7 +13,7 @@ const AUTH_STORAGE_KEY = 'tasks-app.auth';
 })
 export class AuthServices {
   
-  private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/auth';
+  private apiUrl = 'http://localhost:3000/api/auth';
 
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
@@ -90,9 +90,9 @@ export class AuthServices {
     return null;
   }
   
-  async refreshToken(): Promise<void> {
+  async refreshToken(): Promise<RefreshTokenResponse> {
     return await firstValueFrom(
-      this.http.post<void>(`${this.apiUrl}/refresh`, {}, { withCredentials: true })
+      this.http.post<RefreshTokenResponse>(`${this.apiUrl}/refresh`, {}, { withCredentials: true })
     );
   }
 

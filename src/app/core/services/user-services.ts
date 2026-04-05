@@ -9,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class UserServices {
   
-  private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/users';
+  private apiUrl = 'http://localhost:3000/api/users';
 
   private readonly http = inject(HttpClient);
 

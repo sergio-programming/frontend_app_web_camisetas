@@ -8,7 +8,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ProductServices {
 
-  private apiUrl = 'https://backend-app-web-camisetas.onrender.com/api/products';
+  private apiUrl = 'http://localhost:3000/api/products';
 
   private readonly http = inject(HttpClient);
 

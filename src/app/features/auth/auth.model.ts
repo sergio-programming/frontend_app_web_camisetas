@@ -11,6 +11,10 @@ export interface LoginResponse {
     user: SessionUser;
 }
 
+export interface RefreshTokenResponse {
+    accessToken: string;
+}
+
 export interface AuthSession {
     accessToken: string;
     user: SessionUser;
